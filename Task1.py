@@ -15,7 +15,7 @@ class FlatIterator:
         self.inner_list_cursor += 1
         if self.inner_list_cursor == len(self.lists[self.outer_list_cursor]):
             self.outer_list_cursor += 1
-            self.inner_list_cursor = -1
+            self.inner_list_cursor = 0
         if self.outer_list_cursor >= len(self.lists):
             raise StopIteration
         return self.lists[self.outer_list_cursor][self.inner_list_cursor]
@@ -34,8 +34,6 @@ def test_1():
             ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None]
     ):
         assert flat_iterator_item == check_item
-        yield flat_iterator_item
-
     assert list(FlatIterator(list_of_lists_1)) == ['a', 'b', 'c', 'd', 'e', 'f', 'h', False, 1, 2, None]
 
 
