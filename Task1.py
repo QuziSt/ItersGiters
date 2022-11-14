@@ -5,22 +5,20 @@ class FlatIterator:
 
     def __init__(self, list_of_list):
         self.lists = list_of_list
-        self.parts = []
-        self.new_list = self.extract_parts()
 
     def __iter__(self):
-
+        self.outer_list_cursor = 0
+        self.inner_list_cursor = -1
         return self
 
     def __next__(self):
-        for item in self.new_list:
-            return item
-
-    def extract_parts(self):
-        for part in self.lists:
-            for piece in part:
-                self.parts.append(piece)
-        return self.parts
+        self.inner_list_cursor += 1
+        if self.inner_list_cursor == len(self.lists[self.outer_list_cursor]):
+            self.outer_list_cursor += 1
+            self.inner_list_cursor = -1
+        if self.outer_list_cursor >= len(self.lists):
+            raise StopIteration
+        return self.lists[self.outer_list_cursor][self.inner_list_cursor]
 
 
 def test_1():
